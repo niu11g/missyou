@@ -10,4 +10,6 @@ public class MissyouApplication {
         SpringApplication.run(MissyouApplication.class, args);
     }
 
+    //小程序 强制更新
+
 }
