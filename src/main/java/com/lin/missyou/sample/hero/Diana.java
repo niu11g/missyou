@@ -6,6 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class Diana implements ISkill {
 
+    private String name;
+    private String age;
+
+    public Diana(String name,String age){
+        this.name = name;
+        this.age = age;
+    }
+
     public Diana() {
         System.out.println("Diana a");
     }

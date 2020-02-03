@@ -24,5 +24,4 @@ public class Irelia implements ISkill {
         System.out.println("Irelia R");
     }
 
-
 }

@@ -5,11 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class MissyouApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(MissyouApplication.class, args);
     }
-
     //小程序 强制更新
-
 }
