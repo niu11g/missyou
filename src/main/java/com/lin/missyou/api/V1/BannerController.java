@@ -3,6 +3,7 @@ import com.lin.missyou.Service.BannerService;
 import com.lin.missyou.sample.IConnection;
 import com.lin.missyou.sample.ISkill;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,22 +20,24 @@ public class BannerController {
 //    }
 
     @Autowired
-    private ISkill camille;
+//  @Qualifier("camille")
+    private ISkill iSkill;
 
-    @Autowired
-    private IConnection iConnection;
+//    @Autowired
+//    private IConnection iConnection;
 
     @Autowired
     private BannerService bannerService;
 
     @GetMapping("/test")
-    public String test() {
-        camille.r();
-        return "Hello,九十月";
+    public String test() throws Exception {
+        iSkill.r();
+        throw new Exception("这里错了");
+//        return "Hello,九十月";
     }
 
-    @GetMapping("/test1")
-    public void test1(){
-        iConnection.getConnection();
-    }
+//    @GetMapping("/test1")
+//    public void test1(){
+//        iConnection.getConnection();
+//    }
 }

@@ -1,9 +1,7 @@
 package com.lin.missyou.sample.hero;
 
 import com.lin.missyou.sample.ISkill;
-import org.springframework.stereotype.Component;
 
-@Component
 public class Diana implements ISkill {
 
     private String name;

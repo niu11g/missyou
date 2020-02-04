@@ -1,8 +1,13 @@
 package com.lin.missyou.sample.hero;
 
 import com.lin.missyou.sample.ISkill;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
+//@Component
+//@Primary
 public class Camille implements ISkill {
+
     private String name;
     private String age;
 

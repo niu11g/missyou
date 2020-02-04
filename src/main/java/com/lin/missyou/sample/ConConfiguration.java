@@ -13,11 +13,10 @@ public class ConConfiguration {
     @Value("${mysql.port}")
     private Integer port;
 
-    @Bean
-    public IConnection mysqlConnetction(){
-        return new MySqlConnection(url,port);
+//    @Bean
+    public IConnection mysqlConnetction() {
+        return new MySqlConnection(url, port);
     }
-
 
 
 }
