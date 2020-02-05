@@ -1,5 +1,6 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.V1.Sample;
 import com.lin.missyou.Service.BannerService;
+import com.lin.missyou.exception.ForbiddenException;
 import com.lin.missyou.sample.IConnection;
 import com.lin.missyou.sample.ISkill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/banner")
+@RequestMapping("/banner")
 public class BannerController {
     // 编译项目
     // 重启服务器
@@ -21,7 +22,7 @@ public class BannerController {
 
     @Autowired
 //  @Qualifier("camille")
-    private ISkill iSkill;
+    private ISkill irelia;
 
 //    @Autowired
 //    private IConnection iConnection;
@@ -30,10 +31,11 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/test")
-    public String test() throws Exception {
-        iSkill.r();
-        throw new Exception("这里错了");
-//        return "Hello,九十月";
+    public String test() {
+        irelia.r();
+//        throw new ForbiddenException(10001);
+//        throw new Exception("这里错了");
+        return "Hello,九十月";
     }
 
 //    @GetMapping("/test1")
