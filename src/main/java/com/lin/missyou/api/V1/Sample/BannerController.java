@@ -1,16 +1,19 @@
 package com.lin.missyou.api.V1.Sample;
 import com.lin.missyou.Service.BannerService;
-import com.lin.missyou.exception.ForbiddenException;
-import com.lin.missyou.sample.IConnection;
+import com.lin.missyou.dto.PersonDTO;
 import com.lin.missyou.sample.ISkill;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 
 @RestController
 @RequestMapping("/banner")
+@Validated
 public class BannerController {
     // 编译项目
     // 重启服务器
@@ -30,12 +33,20 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
-    @GetMapping("/test")
-    public String test() {
+//    @GetMapping("/test/{id2}")
+    @PostMapping("/test/{id}")
+    public PersonDTO test(//@PathVariable @Max(value = 10,message = "id不可以大于10") Integer id,
+                       @PathVariable @Range(min = 1,max = 10,message = "id应该在1到10之间") Integer id,
+                       @RequestParam @Length(min=4) String name,
+                       @RequestBody @Valid PersonDTO personDTO) {
         irelia.r();
+        PersonDTO dto = PersonDTO.builder()
+                .name("7yue")
+                .age(18)
+                .build();
 //        throw new ForbiddenException(10001);
 //        throw new Exception("这里错了");
-        return "Hello,九十月";
+        return dto;
     }
 
 //    @GetMapping("/test1")

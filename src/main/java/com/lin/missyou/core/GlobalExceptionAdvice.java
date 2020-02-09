@@ -7,12 +7,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionAdvice {
@@ -44,5 +49,40 @@ public class GlobalExceptionAdvice {
         HttpStatus httpStatus = HttpStatus.resolve(e.getHttpStatusCode());
         ResponseEntity<UnifyResponse> r = new ResponseEntity<>(message,headers,httpStatus);
         return r;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    @ResponseStatus(code=HttpStatus.BAD_REQUEST)
+    public UnifyResponse handleBeanValidation(HttpServletRequest req,MethodArgumentNotValidException e){
+        String requestUrl = req.getRequestURI();
+        String method = req.getMethod();
+        List<ObjectError> errors = e.getBindingResult().getAllErrors();
+        String message = this.formatAllErrorMessages(errors);
+        return new UnifyResponse(10001,message,method + " " + requestUrl);
+
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(code=HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public UnifyResponse handleConstraintException(HttpServletRequest req, ConstraintViolationException e){
+        e.getConstraintViolations();
+        String requestUrl = req.getRequestURI();
+        String method = req.getMethod();
+        String message = e.getMessage();
+
+        return new UnifyResponse(100001,message,method + " " + requestUrl);
+//        for (ConstraintViolation error: e.getConstraintViolations()
+//             ) {
+//            ConstraintViolation a = error;
+//        }
+    }
+
+    private String formatAllErrorMessages(List<ObjectError> errors){
+        StringBuffer errorMsg = new StringBuffer();
+        errors.forEach(error ->
+                errorMsg.append(error.getDefaultMessage()).append(';'));
+        return errorMsg.toString();
     }
 }
