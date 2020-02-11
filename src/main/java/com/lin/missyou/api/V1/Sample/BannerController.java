@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/banner")
@@ -32,6 +33,14 @@ public class BannerController {
 
     @Autowired
     private BannerService bannerService;
+
+    @GetMapping("/name/{name}")
+    public  void getByName(@PathVariable @NotBlank String name){
+
+        String result = bannerService.getName(name);
+
+
+    }
 
 //    @GetMapping("/test/{id2}")
     @PostMapping("/test/{id}")
