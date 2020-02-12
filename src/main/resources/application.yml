@@ -1,6 +1,9 @@
 spring:
   profiles:
-    active: prod
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
 
 missyou:
   api-package: com.lin.missyou.api
