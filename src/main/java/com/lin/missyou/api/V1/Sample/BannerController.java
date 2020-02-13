@@ -1,6 +1,7 @@
 package com.lin.missyou.api.V1.Sample;
 import com.lin.missyou.Service.BannerService;
 import com.lin.missyou.dto.PersonDTO;
+import com.lin.missyou.model.Banner;
 import com.lin.missyou.sample.ISkill;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -35,9 +36,10 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/name/{name}")
-    public  void getByName(@PathVariable @NotBlank String name){
+    public Banner getByName(@PathVariable @NotBlank String name){
 
-        String result = bannerService.getName(name);
+        Banner banner = bannerService.getName(name);
+        return banner;
 
 
     }

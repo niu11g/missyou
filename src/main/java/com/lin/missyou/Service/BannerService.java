@@ -1,10 +1,8 @@
 package com.lin.missyou.Service;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
+import com.lin.missyou.model.Banner;
 
 public interface BannerService {
 
-    String getName(String name);
+    Banner getName(String name);
 }
