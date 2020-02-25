@@ -1,6 +1,7 @@
-package com.lin.missyou.api.V1.Sample;
+package com.lin.missyou.api.V1;
 import com.lin.missyou.Service.BannerService;
 import com.lin.missyou.dto.PersonDTO;
+import com.lin.missyou.exception.NotFoundException;
 import com.lin.missyou.model.Banner;
 import com.lin.missyou.sample.ISkill;
 import org.hibernate.validator.constraints.Length;
@@ -10,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 @RestController
@@ -39,6 +39,9 @@ public class BannerController {
     public Banner getByName(@PathVariable @NotBlank String name){
 
         Banner banner = bannerService.getName(name);
+        if(banner==null){
+           throw new NotFoundException(20001);
+        }
         return banner;
 
 

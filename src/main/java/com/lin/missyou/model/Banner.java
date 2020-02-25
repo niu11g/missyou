@@ -1,26 +1,32 @@
 package com.lin.missyou.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = ("banner"))
-public class Banner {
+@Getter
+@Setter
+public class Banner extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(length = 16)
+    private Long id;
     private String name;
-
-    // @Transient  不需要映射到物理表中的字段
-    @Transient
     private String description;
-    private String img;
+    @JsonIgnore
+    private Date createTime;
+    @JsonIgnore
+    private Date updateTime;
+    @JsonIgnore
+    private Date deleteTime;
     private String title;
+    private String img;
 
     //懒加载设置成急加载
-    @OneToMany(mappedBy = "banner",fetch = FetchType.EAGER)
-//
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = ("bannerId"))
     private List<BannerItem> items;
 }
