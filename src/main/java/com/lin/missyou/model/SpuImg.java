@@ -1,5 +1,6 @@
 package com.lin.missyou.model;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,14 +10,11 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Getter
 @Setter
-public class BannerItem extends BaseEntity {
+@Getter
+public class SpuImg extends Serializers.Base {
     @Id
     private Long id;
     private String img;
-    private String keyword;
-    private short type;
-    private Long bannerId;
-    private String name;
+    private Long spuId;
 }

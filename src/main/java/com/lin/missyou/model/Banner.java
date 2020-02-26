@@ -16,12 +16,7 @@ public class Banner extends BaseEntity {
     private Long id;
     private String name;
     private String description;
-    @JsonIgnore
-    private Date createTime;
-    @JsonIgnore
-    private Date updateTime;
-    @JsonIgnore
-    private Date deleteTime;
+
     private String title;
     private String img;
 

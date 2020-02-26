@@ -9,14 +9,12 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Getter
 @Setter
-public class BannerItem extends BaseEntity {
+@Getter
+public class SpuDetailImg extends BaseEntity {
     @Id
     private Long id;
     private String img;
-    private String keyword;
-    private short type;
-    private Long bannerId;
-    private String name;
+    private Long spuId;
+    private Long index;
 }
