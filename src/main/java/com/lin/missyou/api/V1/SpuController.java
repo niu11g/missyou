@@ -38,9 +38,8 @@ public class SpuController {
         return spu;
     }
     @GetMapping("/id/{id}/sim")
-    public SpuSimpleVo getDetailSpuS(@PathVariable @Positive Long id){
+    public SpuSimpleVo getDetailSpuS(@PathVariable @Positive(message = "{id.positive}") Long id){
         Spu spu = this.spuService.getSpuById(id);
-
         SpuSimpleVo vo = new SpuSimpleVo();
         BeanUtils.copyProperties(spu,vo);
         return vo;
@@ -60,5 +59,14 @@ public class SpuController {
 //            vos.add(vo);
 //        });
 //        return vos;
+    }
+    @GetMapping("/by/category/{id}")
+    public PagingDozer<Spu,SpuSimpleVo> getByCategoryId(@PathVariable @Positive Long id,
+                                                        @RequestParam(name = "is_root",defaultValue = "false") Boolean isRoot,
+                                                        @RequestParam(name = "start",defaultValue = "0") Integer start,
+                                                        @RequestParam(name = "count",defaultValue = "10") Integer count){
+        PageCounter pageCounter = CommonUtil.converToPageParameter(start,count);
+        Page<Spu> page = this.spuService.getByCategory(id,isRoot,start,count);
+        return new PagingDozer<>(page,SpuSimpleVo.class);
     }
 }
