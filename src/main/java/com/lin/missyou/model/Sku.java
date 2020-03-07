@@ -1,21 +1,24 @@
 package com.lin.missyou.model;
 
-import com.lin.missyou.util.ListAndJson;
+import com.lin.missyou.util.GenericAndJson;
 import com.lin.missyou.util.MapAndJson;
+import com.lin.missyou.util.SuperGenericAndJson;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Entity
 @Setter
 @Getter
-public class Sku extends BaseEntity{
+public class Sku extends BaseEntity {
     @Id
     private Long id;
     private BigDecimal price;
@@ -26,12 +29,27 @@ public class Sku extends BaseEntity{
     private Long spuId;
     private Long categoryId;
     private Long rootCategoryId;
-//    private Map<String,Object> test;
-      @Convert(converter = MapAndJson.class)
-      private Map<String,Object> test;
+//  @Convert(converter = MapAndJson.class)
+//  private Map<String,Object> test;
 
-    @Convert(converter = ListAndJson.class)
-    private List<Object> specs;
+//  @Convert(converter = ListAndJson.class)
+    @Convert(converter = SuperGenericAndJson.class)
+    private List<Spec> specs;
+
+//    public List<Spec> getSpecs() {
+//        if (this.specs == null) {
+//            return Collections.emptyList();
+//        }
+//        return GenericAndJson.jsonToList(this.specs);
+//    }
+//
+//    public void setSpecs(List<Spec> specs) {
+//        if (specs.isEmpty()) {
+//            return;
+//        }
+//        this.specs = GenericAndJson.objectToJson(specs);
+//    }
+
     private String code;
     private Long stock;
 

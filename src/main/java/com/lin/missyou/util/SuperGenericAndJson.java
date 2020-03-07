@@ -1,41 +1,42 @@
 package com.lin.missyou.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lin.missyou.exception.ServerErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Converter
-public class MapAndJson implements AttributeConverter<Map<String, Object>, String> {
-
+public class SuperGenericAndJson <T> implements AttributeConverter<T,String> {
     @Autowired
     private ObjectMapper mapper;
 
     @Override
-    public String convertToDatabaseColumn(Map<String, Object> stringObjectMap) {
+    public String convertToDatabaseColumn(T t) {
         try {
-            return mapper.writeValueAsString(stringObjectMap);
-        } catch (Exception e) {
+            return mapper.writeValueAsString(t);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new ServerErrorException(9999);
         }
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public Map<String, Object> convertToEntityAttribute(String s) {
+    public T convertToEntityAttribute(String s) {
         try {
-//            if(s == null){
-//                return null;
-//            }
-            Map<String, Object> t = mapper.readValue(s, HashMap.class);
+            if(s == null){
+                return null;
+            }
+            T t = mapper.readValue(s, new TypeReference<T>() {
+            });
             return t;
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new ServerErrorException(9999);
         }

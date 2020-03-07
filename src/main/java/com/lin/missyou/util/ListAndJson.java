@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Converter
 public class ListAndJson implements AttributeConverter<List<Object>,String> {
