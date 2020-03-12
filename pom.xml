@@ -45,7 +45,7 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
+<!--        jpa   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -85,11 +85,6 @@
             <artifactId>json-lib</artifactId>
             <version>2.2.3</version>
             <classifier>jdk15</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.github.dozermapper</groupId>
-            <artifactId>dozer-core</artifactId>
-            <version>6.5.0</version>
         </dependency>
     </dependencies>
 

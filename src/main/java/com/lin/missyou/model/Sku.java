@@ -1,19 +1,14 @@
 package com.lin.missyou.model;
 
-import com.lin.missyou.util.GenericAndJson;
-import com.lin.missyou.util.MapAndJson;
 import com.lin.missyou.util.SuperGenericAndJson;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Setter
