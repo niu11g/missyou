@@ -1,6 +1,6 @@
 package com.lin.missyou.dto;
 
-import com.lin.missyou.validators.PasswordEqual;
+import com.lin.missyou.dto.validators.PasswordEqual;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
