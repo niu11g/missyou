@@ -14,7 +14,9 @@ public class CategoryAllVo {
     private List<CategoryPureVo> roots;
     private List<CategoryPureVo> subs;
 
+
     public CategoryAllVo(Map<Integer,List<Category>> map) {
+        //
         this.roots = map.get(1).stream()
                 .map(CategoryPureVo::new)
                 .collect(Collectors.toList());
