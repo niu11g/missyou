@@ -1,13 +1,12 @@
 package com.lin.missyou.api.V1;
 
 import com.lin.missyou.Service.CouponService;
+import com.lin.missyou.core.LocalUser;
+import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.model.Coupon;
 import com.lin.missyou.vo.CouponPureVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,5 +37,12 @@ public class CouponController {
         }
         List<CouponPureVO> vos = CouponPureVO.getList(coupons);
         return vos;
+    }
+
+    @ScopeLevel()
+    @PostMapping("/collect/{id}")
+    public void collectCoupon(@PathVariable Long id){
+        Long uid = LocalUser.getUser().getId();
+        couponService.collectOneCoupon(uid,id);
     }
 }

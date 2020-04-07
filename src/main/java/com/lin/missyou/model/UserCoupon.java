@@ -1,5 +1,6 @@
 package com.lin.missyou.model;
 
+import com.lin.missyou.core.enumeration.LoginType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,6 @@ public class UserCoupon{
     private Long userId;         //用户ID
     private Long couponId;       //优惠劵ID
     private Date createTime;     //用户领取优惠劵时间
-    private Long status;         //用户使用优惠劵的状态：已领取未使用 已领取已使用 已过期
+    private Integer status;         //用户使用优惠劵的状态：已领取未使用 已领取已使用 已过期
     private Long orderId;        //订单ID
 }
