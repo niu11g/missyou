@@ -2,7 +2,7 @@ package com.lin.missyou.api.V1;
 import com.lin.missyou.Service.BannerService;
 import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.dto.PersonDTO;
-import com.lin.missyou.exception.NotFoundException;
+import com.lin.missyou.exception.http.NotFoundException;
 import com.lin.missyou.model.Banner;
 import com.lin.missyou.sample.ISkill;
 import org.hibernate.validator.constraints.Length;

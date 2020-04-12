@@ -1,4 +1,4 @@
-package com.lin.missyou.exception;
+package com.lin.missyou.exception.http;
 
 public class NotFoundException extends  HttpException {
     public NotFoundException(int code){

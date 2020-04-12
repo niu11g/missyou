@@ -1,4 +1,4 @@
-package com.lin.missyou.exception;
+package com.lin.missyou.exception.http;
 
 public class ForbiddenException extends HttpException {
     public ForbiddenException(int code){

@@ -2,10 +2,9 @@ package com.lin.missyou.api.V1;
 
 
 import com.lin.missyou.Service.WxAuthenticationService;
-import com.lin.missyou.core.enumeration.LoginType;
 import com.lin.missyou.dto.TokenDTO;
 import com.lin.missyou.dto.TokenGetDTO;
-import com.lin.missyou.exception.NotFoundException;
+import com.lin.missyou.exception.http.NotFoundException;
 import com.lin.missyou.util.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

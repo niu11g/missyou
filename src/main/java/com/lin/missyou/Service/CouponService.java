@@ -1,9 +1,8 @@
 package com.lin.missyou.Service;
 
 import com.lin.missyou.core.enumeration.CouponStatus;
-import com.lin.missyou.core.enumeration.LoginType;
-import com.lin.missyou.exception.NotFoundException;
-import com.lin.missyou.exception.ParameterException;
+import com.lin.missyou.exception.http.NotFoundException;
+import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.model.Activity;
 import com.lin.missyou.model.Coupon;
 import com.lin.missyou.model.UserCoupon;
@@ -56,7 +55,8 @@ public class CouponService {
         }
         this.userCouponRepository
                 .findFirstByUserIdAndCouponId(uid,couponId)
-                .orElseThrow(()->new ParameterException(40006));
+                .ifPresent((uc)->{throw new ParameterException(40006);});
+//                .orElseThrow(()->new ParameterException(40006));
 
         UserCoupon userCouponNew = UserCoupon.builder()
                 .userId(uid)
@@ -65,8 +65,20 @@ public class CouponService {
                 .createTime(now)
                 .build();
         userCouponRepository.save(userCouponNew);
-
     }
-
+    //获取未使用的优惠劵
+    public List<Coupon> getMyAvailableCoupons(Long uid){
+        Date now = new Date();
+        return this.couponRepository.findMyAvailable(uid,now);
+    }
+    //获取已使用的优惠劵
+    public List<Coupon> getMyUsedCoupons(Long uid){
+        return this.couponRepository.findMyUsed(uid);
+    }
+    //获取已过期的优惠劵
+    public List<Coupon> getMyExpiredCoupons(Long uid){
+        Date now = new Date();
+       return this.couponRepository.findMyExpired(uid,now);
+    }
 
 }

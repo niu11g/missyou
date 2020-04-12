@@ -2,7 +2,7 @@ package com.lin.missyou.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lin.missyou.exception.ParameterException;
+import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.model.User;
 import com.lin.missyou.repository.UserRepository;
 import com.lin.missyou.util.JwtToken;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.swing.text.html.Option;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Optional;
@@ -48,14 +47,14 @@ public class WxAuthenticationService {
         if(openid == null){
             throw new ParameterException(20004);
         }
-        Optional<User> userOptional = this.userRepository.findByOpenId(openid);
+        Optional<User> userOptional = this.userRepository.findByOpenid(openid);
         if(userOptional.isPresent()){
             // TODO：返回JWT令牌
             // 数字等级
             return JwtToken.makeToken(userOptional.get().getId());
         }
         User user = User.builder()
-                .openId(openid)
+                .openid(openid)
                 .build();
         userRepository.save(user);
         // TODO：返回JWT令牌

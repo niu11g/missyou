@@ -18,13 +18,13 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String openId;
+    private String openid;
     private String nickname;
     private Long unifyUid;
     private String email;
     private String password;
     private String mobile;
-    private String group;  //分组
+    //private String group;  //分组
 
     @Convert(converter = MapAndJson.class)
     private Map<String,Object> wxProfile;

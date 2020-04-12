@@ -2,7 +2,7 @@ package com.lin.missyou.api.V1;
 
 import com.lin.missyou.Service.CategoryService;
 import com.lin.missyou.Service.GridCategoryService;
-import com.lin.missyou.exception.NotFoundException;
+import com.lin.missyou.exception.http.NotFoundException;
 import com.lin.missyou.model.Category;
 import com.lin.missyou.model.GridCategory;
 import com.lin.missyou.vo.CategoryAllVo;
