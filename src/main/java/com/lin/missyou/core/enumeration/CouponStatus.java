@@ -3,7 +3,7 @@ package com.lin.missyou.core.enumeration;
 import java.util.stream.Stream;
 
 public enum CouponStatus {
-
+    //优惠劵状态
     AVAILABLE(1,"可以使用，未过期"),  //未使用
     USED(2,"已使用"),               //已使用
     EXPIRED(3,"未使用，已过期");     //已过期
