@@ -48,4 +48,8 @@ public class Sku extends BaseEntity {
     private String code;
     private Long stock;
 
+    public BigDecimal getActualPrice(){
+        return discountPrice == null?this.price:this.discountPrice;
+    }
+
 }

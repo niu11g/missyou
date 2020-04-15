@@ -1,5 +1,6 @@
 package com.lin.missyou.logic;
 
+import com.lin.missyou.bo.SkuOrderBO;
 import com.lin.missyou.core.enumeration.CouponType;
 import com.lin.missyou.core.money.IMoneyDiscount;
 import com.lin.missyou.exception.http.ForbiddenException;
@@ -10,6 +11,7 @@ import com.lin.missyou.util.CommonUtil;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class CouponChecker {
 
@@ -56,8 +58,21 @@ public class CouponChecker {
         }
     }
 
-    public void canBeUsed(){
+    public void canBeUsed(List<SkuOrderBO> skuOrderBOList, BigDecimal serverTotalPrice){
+        BigDecimal orderCategoryPrice;
+        if(this.coupon.getWholeStore()){
+            orderCategoryPrice = serverTotalPrice;
+        }
 
+    }
+
+    private BigDecimal getSumByCategory(List<SkuOrderBO> skuOrderBOList,Long cid){
+        BigDecimal sum = skuOrderBOList.stream()
+                .filter(sku->sku.getCategoryId().equals(cid))
+                .map(bo->bo.getTotalPrice())
+                .reduce(BigDecimal::add)
+                .orElse(new BigDecimal("0"));
+        return sum;
     }
 
 //    public CouponChecker(Long couponId,Long uid){
