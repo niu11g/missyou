@@ -1,18 +1,23 @@
 package com.lin.missyou.model;
 
-import com.lin.missyou.util.SuperGenericAndJson;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.lin.missyou.util.GenericAndJson;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Setter
 @Getter
+@Where(clause = "delete_time is null and online = 1")
 public class Sku extends BaseEntity {
     @Id
     private Long id;
@@ -28,28 +33,34 @@ public class Sku extends BaseEntity {
 //  private Map<String,Object> test;
 
 //  @Convert(converter = ListAndJson.class)
-    @Convert(converter = SuperGenericAndJson.class)
-    private List<Spec> specs;
+//    @Convert(converter = SuperGenericAndJson.class)
+//    private List<Spec> specs;
+    private String specs;
 
-//    public List<Spec> getSpecs() {
-//        if (this.specs == null) {
-//            return Collections.emptyList();
-//        }
-//        return GenericAndJson.jsonToList(this.specs);
-//    }
-//
-//    public void setSpecs(List<Spec> specs) {
-//        if (specs.isEmpty()) {
-//            return;
-//        }
-//        this.specs = GenericAndJson.objectToJson(specs);
-//    }
+    public List<Spec> getSpecs() {
+        if (this.specs == null) {
+            return Collections.emptyList();
+        }
+        return GenericAndJson.jsonToObject(this.specs, new TypeReference<List<Spec>>(){});
+    }
+
+    public void setSpecs(List<Spec> specs) {
+        if (specs.isEmpty()) {
+            return;
+        }
+        this.specs = GenericAndJson.objectToJson(specs);
+    }
 
     private String code;
     private Long stock;
 
     public BigDecimal getActualPrice(){
         return discountPrice == null?this.price:this.discountPrice;
+    }
+
+    @JsonIgnore
+    public List<String> getSpecValueList(){
+        return this.getSpecs().stream().map(Spec::getValue).collect(Collectors.toList());
     }
 
 }

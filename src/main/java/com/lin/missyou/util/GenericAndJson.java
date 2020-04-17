@@ -29,7 +29,7 @@ public class GenericAndJson {
     }
 
     //反序列化
-    public static <T> T jsonToObject(String s, Class<T> classT) {
+    public static <T> T jsonToObject(String s, TypeReference<T> classT) {
         if (s == null) {
             return null;
         }
