@@ -1,4 +1,4 @@
-package com.lin.missyou.Service;
+package com.lin.missyou.service;
 
 import com.lin.missyou.dto.TokenGetDTO;
 import org.springframework.stereotype.Service;

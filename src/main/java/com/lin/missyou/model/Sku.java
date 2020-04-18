@@ -1,8 +1,8 @@
 package com.lin.missyou.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.lin.missyou.util.GenericAndJson;
+import com.oracle.tools.packager.Log;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,7 +59,7 @@ public class Sku extends BaseEntity {
         return discountPrice == null?this.price:this.discountPrice;
     }
 
-    @JsonIgnore
+
     public List<String> getSpecValueList(){
         return this.getSpecs().stream().map(Spec::getValue).collect(Collectors.toList());
     }

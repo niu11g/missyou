@@ -1,5 +1,5 @@
-package com.lin.missyou.api.V1;
-import com.lin.missyou.Service.BannerService;
+package com.lin.missyou.api.v1;
+import com.lin.missyou.service.BannerService;
 import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.dto.PersonDTO;
 import com.lin.missyou.exception.http.NotFoundException;

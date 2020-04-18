@@ -1,4 +1,4 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.v1;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.lin.missyou.Service;
+package com.lin.missyou.service;
 
 import com.lin.missyou.model.Spu;
 import com.lin.missyou.repository.SpuRepository;
@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SpuService {

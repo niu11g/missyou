@@ -1,6 +1,6 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.v1;
 
-import com.lin.missyou.Service.OrderService;
+import com.lin.missyou.service.OrderService;
 import com.lin.missyou.core.LocalUser;
 import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.dto.OrderDTO;
@@ -27,8 +27,9 @@ public class OrderController {
         Long uid = LocalUser.getUser().getId();
         //先较验
         OrderChecker orderChecker = this.orderService.isOK(uid,orderDTO);
-//        this.orderService.placeOrder(uid,orderDTO);
-        return null;
+        Long oid = this.orderService.placeOrder(uid,orderDTO,orderChecker);
+
+        return new OrderIdVO(oid);
     }
 
 }

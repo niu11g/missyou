@@ -1,11 +1,10 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.v1;
 
-import com.lin.missyou.Service.CouponService;
+import com.lin.missyou.service.CouponService;
 import com.lin.missyou.core.LocalUser;
 import com.lin.missyou.core.UnifyResponse;
 import com.lin.missyou.core.enumeration.CouponStatus;
 import com.lin.missyou.core.interceptors.ScopeLevel;
-import com.lin.missyou.exception.CreateSuccess;
 import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.model.Coupon;
 import com.lin.missyou.model.User;
@@ -14,7 +13,6 @@ import com.lin.missyou.vo.CouponPureVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

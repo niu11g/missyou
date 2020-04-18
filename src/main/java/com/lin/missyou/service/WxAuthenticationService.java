@@ -1,4 +1,4 @@
-package com.lin.missyou.Service;
+package com.lin.missyou.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -22,7 +22,6 @@ public enum OrderStatus {
     public int value(){
         return this.value;
     }
-
     public static OrderStatus toType(int value){
         return Stream.of(OrderStatus.values())
                 .filter(o->o.value()==value)

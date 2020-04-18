@@ -1,4 +1,4 @@
-package com.lin.missyou.Service;
+package com.lin.missyou.service;
 
 import com.lin.missyou.core.enumeration.CouponStatus;
 import com.lin.missyou.exception.http.NotFoundException;

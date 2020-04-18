@@ -7,6 +7,7 @@ import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.model.OrderSku;
 import com.lin.missyou.model.Sku;
 import lombok.Getter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class OrderChecker {
     private Integer maxSkuLimit;
 
     @Getter
-    private List<OrderSku> orderSkuList = new ArrayList<>(  );
+    private List<OrderSku> orderSkuList = new ArrayList<>();
 
     public OrderChecker(OrderDTO orderDTO,List<Sku> serverSkuList,
                         CouponChecker couponChecker,Integer maxSkuLimit){
@@ -47,6 +48,7 @@ public class OrderChecker {
                 .orElse(0);
     }
 
+    @Transactional
     public void isOK(){
         BigDecimal serverTotalPrice = new BigDecimal("0");
         List<SkuOrderBO> skuOrderBOList = new ArrayList<>();
@@ -58,7 +60,7 @@ public class OrderChecker {
             this.containsSoldOutSku(sku);
             this.beyondSkuStock(sku,skuInfoDTO);
             this.beyondMaxSkuLimit(skuInfoDTO);
-            serverTotalPrice.add(this.caculateSkuOrderPrice(sku,skuInfoDTO));
+            serverTotalPrice = serverTotalPrice.add(this.caculateSkuOrderPrice(sku,skuInfoDTO));
             skuOrderBOList.add(new SkuOrderBO(sku,skuInfoDTO));
             this.orderSkuList.add(new OrderSku(sku,skuInfoDTO));
         }

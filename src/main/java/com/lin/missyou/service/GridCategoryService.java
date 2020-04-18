@@ -1,4 +1,4 @@
-package com.lin.missyou.Service;
+package com.lin.missyou.service;
 
 import com.lin.missyou.model.GridCategory;
 import com.lin.missyou.repository.GirdCategoryRepository;

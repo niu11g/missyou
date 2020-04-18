@@ -1,6 +1,6 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.v1;
 
-import com.lin.missyou.Service.SpuService;
+import com.lin.missyou.service.SpuService;
 import com.lin.missyou.bo.PageCounter;
 import com.lin.missyou.exception.http.NotFoundException;
 import com.lin.missyou.model.Spu;

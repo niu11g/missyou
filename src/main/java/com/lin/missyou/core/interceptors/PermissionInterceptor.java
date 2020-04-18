@@ -1,7 +1,7 @@
 package com.lin.missyou.core.interceptors;
 
 import com.auth0.jwt.interfaces.Claim;
-import com.lin.missyou.Service.UserService;
+import com.lin.missyou.service.UserService;
 import com.lin.missyou.core.LocalUser;
 import com.lin.missyou.exception.http.ForbiddenException;
 import com.lin.missyou.exception.http.UnAuthenticatedException;

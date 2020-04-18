@@ -1,7 +1,7 @@
-package com.lin.missyou.api.V1;
+package com.lin.missyou.api.v1;
 
 
-import com.lin.missyou.Service.WxAuthenticationService;
+import com.lin.missyou.service.WxAuthenticationService;
 import com.lin.missyou.dto.TokenDTO;
 import com.lin.missyou.dto.TokenGetDTO;
 import com.lin.missyou.exception.http.NotFoundException;
