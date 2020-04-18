@@ -1,5 +1,6 @@
 package com.lin.missyou.Service;
 
+import com.lin.missyou.core.enumeration.OrderStatus;
 import com.lin.missyou.core.money.IMoneyDiscount;
 import com.lin.missyou.dto.OrderDTO;
 import com.lin.missyou.dto.SkuInfoDTO;
@@ -8,10 +9,12 @@ import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.logic.CouponChecker;
 import com.lin.missyou.logic.OrderChecker;
 import com.lin.missyou.model.Coupon;
+import com.lin.missyou.model.Order;
 import com.lin.missyou.model.Sku;
 import com.lin.missyou.model.UserCoupon;
 import com.lin.missyou.repository.CouponRepository;
 import com.lin.missyou.repository.UserCouponRepository;
+import com.lin.missyou.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -66,5 +69,21 @@ public class OrderService {
         );
         orderChecker.isOK();
         return orderChecker;
+    }
+
+    public void placeOrder(Long uid,OrderDTO orderDTO,OrderChecker orderChecker){
+
+        String orderNo = OrderUtil.makeOrderNo();
+        Order order = Order.builder()
+                .orderNo(orderNo)
+                .totalPrice(orderDTO.getTotalPrice())
+                .finalTotalPrice(orderDTO.getFinalTotalPrice())
+                .userId(uid)
+                .totalCount(orderChecker.getTotalCount().longValue())
+                .snapImg(orderChecker.getLeaderImg())
+                .snapTitle(orderChecker.getLeaderTitle())
+                .status(OrderStatus.UNPAID.value())
+                .build();
+
     }
 }
