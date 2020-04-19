@@ -1,5 +1,6 @@
 package com.lin.missyou.service;
 
+import com.lin.missyou.core.LocalUser;
 import com.lin.missyou.core.enumeration.OrderStatus;
 import com.lin.missyou.core.money.IMoneyDiscount;
 import com.lin.missyou.dto.OrderDTO;
@@ -14,14 +15,22 @@ import com.lin.missyou.repository.CouponRepository;
 import com.lin.missyou.repository.OrderRepository;
 import com.lin.missyou.repository.SkuRepository;
 import com.lin.missyou.repository.UserCouponRepository;
+import com.lin.missyou.util.CommonUtil;
 import com.lin.missyou.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +56,9 @@ public class OrderService {
 
     @Value("${missyou.order.max-sku-limit}")
     private int maxSkuLimit;
+
+    @Value("${missyou.order.pay-time-limit}")
+    private Integer payTimeLimit;
 
     @Transactional
     public OrderChecker isOK(Long uid, OrderDTO orderDTO){
@@ -82,8 +94,11 @@ public class OrderService {
     //里面包含连续新增、更改操作，并且是不同的表，需要加事务 一个步骤执行有问题，全部回滚
     @Transactional
     public Long placeOrder(Long uid,OrderDTO orderDTO,OrderChecker orderChecker){
-
+        //build()无法读取基类上的属性
         String orderNo = OrderUtil.makeOrderNo();
+        Calendar now = Calendar.getInstance();
+        Calendar now1 = (Calendar) now.clone();
+        Date expiredTime = CommonUtil.addSomeSeconds(now,this.payTimeLimit).getTime();
         Order order = Order.builder()
                 .orderNo(orderNo)
                 .totalPrice(orderDTO.getTotalPrice())
@@ -93,7 +108,10 @@ public class OrderService {
                 .snapImg(orderChecker.getLeaderImg())
                 .snapTitle(orderChecker.getLeaderTitle())
                 .status(OrderStatus.UNPAID.value())
+                .expiredTime(expiredTime)
+                .placedTime(now1.getTime())
                 .build();
+        order.setCreateTime(now1.getTime());
         order.setSnapAddress(orderDTO.getAddress());
         order.setSnapItems(orderChecker.getOrderSkuList());
         this.orderRepository.save(order);
@@ -123,5 +141,26 @@ public class OrderService {
             }
         }
 
+    }
+
+    public Page<Order> getUnpaid(Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page,size, Sort.by("createTime").descending());
+        Long uid = LocalUser.getUser().getId();
+        Date now = new Date();
+        return this.orderRepository.findByExpiredTimeGreaterThanAndStatusAndUserId(now,OrderStatus.UNPAID.value(),uid,pageable);
+    }
+
+    public Page<Order> getByStatus(Integer status,Integer page,Integer size){
+        Pageable pageable = PageRequest.of(page,size,Sort.by("createTime").descending());
+        Long uid = LocalUser.getUser().getId();
+        if(status == OrderStatus.ALL.value()){
+            return this.orderRepository.findByUserId(uid,pageable);
+        }
+        return this.orderRepository.findByUserIdAndStatus(uid,status,pageable);
+    }
+
+    public Optional<Order> getOrderDetail(Long oid){
+        Long uid = LocalUser.getUser().getId();
+        return this.orderRepository.findFirstByUserIdAndId(uid,oid);
     }
 }

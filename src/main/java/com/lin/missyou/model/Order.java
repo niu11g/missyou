@@ -23,7 +23,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "delete_time is null")
-@Table(name = "`Order`")
+@Table(name = "`order`")
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -31,7 +31,7 @@ public class Order extends BaseEntity {
     private String orderNo;
     private Long userId;
     private BigDecimal totalPrice;
-    private Integer totalCount;
+    private Long totalCount;
     private Date expiredTime;
     private Date placedTime;
     private String snapImg;

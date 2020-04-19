@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class SkuInfoDTO {
     private Long id;
-    private Integer count;
+    private Long count;
 }

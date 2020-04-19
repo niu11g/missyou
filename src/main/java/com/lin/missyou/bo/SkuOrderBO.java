@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 public class SkuOrderBO {
     private BigDecimal actualPrice;
-    private Integer count;
+    private Long count;
     private Long categoryId;
 
     public SkuOrderBO(Sku sku, SkuInfoDTO skuInfoDTO){

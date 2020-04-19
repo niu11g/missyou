@@ -40,12 +40,12 @@ public class OrderChecker {
         return this.serverSkuList.get(0).getTitle();
     }
 
-    public Integer getTotalCount(){
+    public Long getTotalCount(){
         return this.orderDTO.getSkuInfoList()
                 .stream()
                 .map(SkuInfoDTO::getCount)
-                .reduce(Integer::sum)
-                .orElse(0);
+                .reduce(Long::sum)
+                .orElse((long) 0);
     }
 
     @Transactional

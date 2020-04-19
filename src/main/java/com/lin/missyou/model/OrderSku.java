@@ -17,7 +17,7 @@ public class OrderSku {
     private BigDecimal finalPrice;
     private BigDecimal singlePrice;
     private List<String> specValues;
-    private Integer count;
+    private Long count;
     private String img;
     private String title;
 
