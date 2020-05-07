@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +60,9 @@ public class OrderService {
 
     @Value("${missyou.order.pay-time-limit}")
     private Integer payTimeLimit;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Transactional
     public OrderChecker isOK(Long uid, OrderDTO orderDTO){
@@ -118,9 +122,12 @@ public class OrderService {
         //减库存
         this.reduceStock(orderChecker);
         //核销优惠劵
+        Long couponId = -1L;
         if(orderDTO.getCouponId() != null){
             this.writeOffCoupon(orderDTO.getCouponId(),order.getId(),uid);
+            couponId = orderDTO.getCouponId();
         }
+        this.sendToRedis(order.getId(),uid,couponId);
         //加入到延迟消息队列
         return order.getId();
     }
@@ -163,4 +170,25 @@ public class OrderService {
         Long uid = LocalUser.getUser().getId();
         return this.orderRepository.findFirstByUserIdAndId(uid,oid);
     }
+
+    public void updateOrderPrepayId(Long orderId,String prePayId){
+        Optional<Order> order = this.orderRepository.findById(orderId);
+        order.ifPresent(o->{
+            o.setPrepayId(prePayId);
+            this.orderRepository.save(o);
+        });
+        order.orElseThrow(()->new ParameterException(10007));
+    }
+
+    private void sendToRedis(Long oid,Long uid,Long couponId){
+        String key =uid.toString()+","+oid.toString()+","+couponId.toString();
+
+        try {
+            stringRedisTemplate.opsForValue().set(key,"1",this.payTimeLimit);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
