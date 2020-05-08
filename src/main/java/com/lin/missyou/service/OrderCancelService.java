@@ -1,6 +1,7 @@
 package com.lin.missyou.service;
 
 import com.lin.missyou.bo.OrderMessageBO;
+import com.lin.missyou.exception.http.NotFoundException;
 import com.lin.missyou.exception.http.ServerErrorException;
 import com.lin.missyou.model.Order;
 import com.lin.missyou.repository.OrderRepository;
@@ -30,10 +31,7 @@ public class OrderCancelService {
 
     private void cancel(Long oid){
         Optional<Order> orderOptional = orderRepository.findById(oid);
-        Order order = orderOptional.orElseThrow(()->{
-            //内部异常不需要返回到前台
-            throw new ServerErrorException(9999);
-        });
+        Order order = orderOptional.orElseThrow(()->new ServerErrorException(50009));
         int res = orderRepository.cancelOrder(oid);
         if(res!=1){
             return;

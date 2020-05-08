@@ -64,7 +64,7 @@ public class WxPaymentService {
         }
         // prepay_id
         // wx.requestPayment
-        return null;
+        return this.makePaySignature(wxOrder);
     }
 
     private Map<String,String> makePaySignature(Map<String,String> wxOrder){
@@ -109,13 +109,13 @@ public class WxPaymentService {
         data.put("fee_type","CNY");
         data.put("trade_type","JSAPI");
         data.put("total_fee", CommonUtil.yuanToFenPlainString(serverFinalPrice));
-        data.put("open_id",LocalUser.getUser().getOpenid());
+        data.put("openid",LocalUser.getUser().getOpenid());
         data.put("spbill_create_ip",HttpRequestProxy.getRemoteRealIp());
         data.put("notify_url",payCallbackUrl);
         return data;
     }
 
-    private WXPay assmbleWxPayConfig(){
+    public WXPay assmbleWxPayConfig(){
         WXPay wxPay = null;
         try {
             wxPay = new WXPay(WxPaymentService.wxPayConfig);

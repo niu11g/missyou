@@ -31,9 +31,7 @@ public class CouponBackService {
             return;
         }
         Optional<Order> optional = orderRepository.findFirstByUserIdAndId(uid,orderId);
-        Order order = optional.orElseThrow(()->{
-            throw new ServerErrorException(9999);
-        });
+        Order order = optional.orElseThrow(()->new ServerErrorException(9999));
 
         if(order.getStatusEnum().equals(OrderStatus.UNPAID)
         || order.getStatusEnum().equals(OrderStatus.CANCELED)){

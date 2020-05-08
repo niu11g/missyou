@@ -25,6 +25,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     Optional<Order> findFirstByUserIdAndId(Long uid,Long oid);
 
+    Optional<Order> findFirstByOrderNo(String orderNo);
+
     @Modifying
     @Query("update Order o set o.status = :status where o.orderNo = :orderNo")
     int updateStatusByOrderNo(String orderNo,Integer status);
