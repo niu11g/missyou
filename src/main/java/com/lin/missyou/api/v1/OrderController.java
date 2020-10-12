@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("order")
-@Validated
+//@Validated
 public class OrderController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @PostMapping("")
-    @ScopeLevel()
+//    @ScopeLevel()
     public OrderIdVO placeOrder(@RequestBody OrderDTO orderDTO) {
         Long uid = LocalUser.getUser().getId();
         //先较验
@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     //查询待支付
-    @ScopeLevel
+//    @ScopeLevel
     @GetMapping("/status/unpaid")
     @SuppressWarnings("unchecked")
     public PagingDozer getUnpaid(@RequestParam(defaultValue = "0")
@@ -63,7 +63,7 @@ public class OrderController {
         return pagingDozer;
     }
 
-    @ScopeLevel
+//    @ScopeLevel
     @GetMapping("/detail/{id}")
     public OrderPureVO getOrderDetail(@PathVariable(name="id") Long oid){
         Optional<Order> orderOptional = this.orderService.getOrderDetail(oid);
@@ -73,7 +73,7 @@ public class OrderController {
 
 
 
-    @ScopeLevel
+//    @ScopeLevel
     @GetMapping("/by/status/{status}")
     public PagingDozer getByStatus(@PathVariable int status,
                                    @RequestParam(name = "start", defaultValue = "0")

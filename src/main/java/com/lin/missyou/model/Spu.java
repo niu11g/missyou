@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Setter
 @Getter
-@Where(clause = "delete_time is not null and online = 1")
+@Where(clause = "delete_time is null and online = 1")
 public class Spu extends BaseEntity {
     @Id
     private Long id;

@@ -45,7 +45,7 @@ public class CouponController {
         return vos;
     }
 
-    @ScopeLevel()
+//    @ScopeLevel()
     @PostMapping("/collect/{id}")
     public void collectCoupon(@PathVariable Long id){
         Long uid = LocalUser.getUser().getId();
@@ -53,7 +53,7 @@ public class CouponController {
         UnifyResponse.createSuccess(0);
     }
 
-    @ScopeLevel()
+//    @ScopeLevel()
     @GetMapping("/myself/by/status/{status}")
     public List<CouponPureVO> getMyCouponByStatus(@PathVariable Integer status){
         Long uid = LocalUser.getUser().getId();
@@ -75,7 +75,7 @@ public class CouponController {
         return CouponPureVO.getList(couponList);
     }
     //获取用户可使用优惠劵的分类
-    @ScopeLevel
+//    @ScopeLevel
     @GetMapping("/myself/available/with_category")
     public List<CouponCategoryVO> getUserCouponWithCategory(){
         User user = LocalUser.getUser();

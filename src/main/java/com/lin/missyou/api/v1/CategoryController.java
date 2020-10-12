@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/category")
-@Validated
+//@Validated
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;

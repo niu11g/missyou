@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/banner")
-@Validated
+//@Validated
 public class BannerController {
     // 编译项目
     // 重启服务器
@@ -37,7 +37,7 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/name/{name}")
-    @ScopeLevel()
+//    @ScopeLevel()
     public Banner getByName(@PathVariable @NotBlank String name){
 
         Banner banner = bannerService.getName(name);

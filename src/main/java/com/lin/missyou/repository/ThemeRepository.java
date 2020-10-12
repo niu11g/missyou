@@ -8,13 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme,Long> {
 
-    @Query("select t from Theme t where t.name in (:names1)")
-    List<Theme> findByNames(@Param("names1") List<String> names);
+    @Query("select t from Theme t where t.name in (:names)")
+    List<Theme> findByNames(List<String> names);
 
+    Optional<Theme> findByName(String name);
 
 
 }

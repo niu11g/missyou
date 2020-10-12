@@ -17,7 +17,7 @@ import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/spu")
-@Validated
+//@Validated
 public class SpuController {
     @Autowired
     private SpuService spuService;
@@ -43,7 +43,7 @@ public class SpuController {
                                               @RequestParam(defaultValue = "10") Integer count){
         PageCounter pageCounter = CommonUtil.converToPageParameter(start,count);
         Page<Spu> page = this.spuService.getLatestPagingSpu(pageCounter.getPage(),pageCounter.getCount());
-        return new PagingDozer<Spu,SpuSimpleVo>(page,SpuSimpleVo.class);
+        return new PagingDozer<>(page,SpuSimpleVo.class);
 //        Paging<Spu> paging = new Paging<>(spuList);
 //        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 //        List<SpuSimpleVo> vos = new ArrayList<>();
