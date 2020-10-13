@@ -34,7 +34,7 @@ public class CouponController {
         List<CouponPureVO> vos = CouponPureVO.getList(coupons);
         return vos;
     }
-
+    //获取全场劵
     @GetMapping("/whole_store")
     public List<CouponPureVO> getWholeStoreCouponList(){
         List<Coupon> coupons = this.couponService.getWholeStoreCoupons(true);
@@ -45,8 +45,8 @@ public class CouponController {
         return vos;
     }
 
-//    @ScopeLevel()
     @PostMapping("/collect/{id}")
+    @ScopeLevel()
     public void collectCoupon(@PathVariable Long id){
         Long uid = LocalUser.getUser().getId();
         couponService.collectOneCoupon(uid,id);
@@ -75,7 +75,7 @@ public class CouponController {
         return CouponPureVO.getList(couponList);
     }
     //获取用户可使用优惠劵的分类
-//    @ScopeLevel
+    @ScopeLevel
     @GetMapping("/myself/available/with_category")
     public List<CouponCategoryVO> getUserCouponWithCategory(){
         User user = LocalUser.getUser();
