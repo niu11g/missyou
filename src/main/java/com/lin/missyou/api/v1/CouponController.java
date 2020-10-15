@@ -53,7 +53,7 @@ public class CouponController {
         UnifyResponse.createSuccess(0);
     }
 
-//    @ScopeLevel()
+    @ScopeLevel()
     @GetMapping("/myself/by/status/{status}")
     public List<CouponPureVO> getMyCouponByStatus(@PathVariable Integer status){
         Long uid = LocalUser.getUser().getId();

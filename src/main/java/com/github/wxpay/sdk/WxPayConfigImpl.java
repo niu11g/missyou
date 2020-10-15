@@ -16,8 +16,13 @@ public class WxPayConfigImpl extends WXPayConfig {
 
     //KEY API密钥
     public String getKey() {
-        return "7b01963b0b8224e899165b7ab94723bb";
+        return "521LiuYanLiuYanLiuYanLiuYanLiuYa";
     }
+
+    //KEY API密钥
+//    public String getKey() {
+//        return "521LiuYanLiuYanLiuYanLiuYanLiuYa";
+//    }
 
     public InputStream getCertStream() {
         return null;

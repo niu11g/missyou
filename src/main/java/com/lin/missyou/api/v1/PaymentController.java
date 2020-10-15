@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RequestMapping("payment")
 @RestController
-//@Validated
+@Validated
 public class PaymentController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class PaymentController {
     private UserCouponRepository userCouponRepository;
 
     @PostMapping("/pay/order/{id}")
-//    @ScopeLevel
+    @ScopeLevel
     public Map<String,String> preWxOrder(@PathVariable(name="id") @Positive Long oid){
         Map<String,String> miniPayParams = this.wxPaymentService.preOrder(oid);
         return miniPayParams;
